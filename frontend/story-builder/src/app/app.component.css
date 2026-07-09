@@ -1,0 +1,519 @@
+:host {
+  --primary: #3b82f6;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-600: #4b5563;
+  --gray-800: #1f2937;
+}
+
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--gray-200);
+}
+
+.header h1 {
+  font-size: 2rem;
+  margin: 0 0 0.5rem 0;
+  color: var(--gray-800);
+}
+
+.header p {
+  color: var(--gray-600);
+  margin: 0;
+}
+
+/* Buttons */
+.btn-primary, .btn-secondary, .btn-success, .btn-danger, .btn-warning, .btn-back {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #2563eb;
+}
+
+.btn-secondary {
+  background: var(--gray-200);
+  color: var(--gray-800);
+}
+
+.btn-secondary:hover {
+  background: var(--gray-300);
+}
+
+.btn-success {
+  background: var(--success);
+  color: white;
+}
+
+.btn-success:hover {
+  background: #059669;
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: white;
+}
+
+.btn-danger:hover {
+  background: #dc2626;
+}
+
+.btn-warning {
+  background: var(--warning);
+  color: white;
+}
+
+.btn-warning:hover {
+  background: #d97706;
+}
+
+.btn-back {
+  background: transparent;
+  color: var(--gray-600);
+  padding: 0.5rem 1rem;
+}
+
+.btn-back:hover {
+  background: var(--gray-100);
+}
+
+.btn-large {
+  font-size: 1.25rem;
+  padding: 1rem 2rem;
+}
+
+/* Config Form */
+.config-section {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.config-form {
+  background: var(--gray-100);
+  padding: 2rem;
+  border-radius: 12px;
+}
+
+.form-section {
+  margin-bottom: 1.5rem;
+}
+
+.form-section h3 {
+  margin: 0 0 1rem 0;
+  color: var(--gray-800);
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--gray-800);
+}
+
+.form-group input, .form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--gray-300);
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+/* Section Header */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-header h2 {
+  margin: 0;
+  flex: 1;
+}
+
+/* Stories Grid */
+.stories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.story-card {
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.story-card:hover {
+  border-color: var(--primary);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+.story-key {
+  font-size: 0.875rem;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.story-summary {
+  margin: 0.5rem 0;
+  font-size: 1.125rem;
+  color: var(--gray-800);
+}
+
+.story-meta {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.875rem;
+  color: var(--gray-600);
+}
+
+.story-status {
+  background: var(--gray-100);
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: var(--gray-600);
+}
+
+/* Workflow Section */
+.workflow-section {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.start-workflow {
+  text-align: center;
+  padding: 3rem;
+  background: var(--gray-100);
+  border-radius: 12px;
+}
+
+.start-workflow code {
+  background: var(--gray-200);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+/* Progress Log */
+.progress-section {
+  margin-bottom: 1.5rem;
+}
+
+.progress-log {
+  background: var(--gray-800);
+  color: #10b981;
+  padding: 1rem;
+  border-radius: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  font-family: monospace;
+}
+
+.progress-item {
+  padding: 0.25rem 0;
+}
+
+/* Workflow Steps */
+.workflow-steps {
+  margin-bottom: 1.5rem;
+}
+
+.workflow-steps h3 {
+  margin-bottom: 1rem;
+}
+
+.status-display {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: white;
+  border: 1px solid var(--gray-200);
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.step-icon {
+  font-size: 2rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+}
+
+.step-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.step-name {
+  font-weight: 600;
+  font-size: 1.125rem;
+  text-transform: capitalize;
+}
+
+.step-message {
+  color: var(--gray-600);
+}
+
+/* Approval Card */
+.approval-card {
+  background: white;
+  border: 2px solid var(--warning);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.approval-card h3 {
+  margin-top: 0;
+  color: var(--gray-800);
+}
+
+.plan-content {
+  margin: 1rem 0;
+}
+
+.plan-section {
+  margin-bottom: 1rem;
+}
+
+.plan-section h4 {
+  margin: 0 0 0.5rem 0;
+  color: var(--gray-800);
+}
+
+.plan-section ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.plan-section pre {
+  background: var(--gray-100);
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
+.approval-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* File Changes */
+.changes-section {
+  margin-bottom: 1.5rem;
+}
+
+.changes-section h3 {
+  margin-bottom: 1rem;
+}
+
+.file-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.file-item {
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+}
+
+.file-item summary {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--gray-800);
+}
+
+.file-item pre {
+  background: var(--gray-100);
+  padding: 1rem;
+  margin: 0;
+  border-top: 1px solid var(--gray-200);
+  overflow-x: auto;
+  font-size: 0.875rem;
+}
+
+/* Test Results */
+.test-results {
+  margin-bottom: 1.5rem;
+}
+
+.test-results h3 {
+  margin-bottom: 1rem;
+}
+
+.test-results ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.test-results li {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+}
+
+.test-results .passed {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.test-results .failed {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Diff Section */
+.diff-section {
+  margin-bottom: 1.5rem;
+}
+
+.diff-section h3 {
+  margin-bottom: 1rem;
+}
+
+.diff-content {
+  background: var(--gray-800);
+  color: #e5e7eb;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: monospace;
+  font-size: 0.875rem;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Feedback Input */
+.feedback-input {
+  margin: 1rem 0;
+}
+
+.feedback-input textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--gray-300);
+  border-radius: 6px;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+/* Completed Card */
+.completed-card {
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.completed-card h3 {
+  color: #065f46;
+  font-size: 1.5rem;
+  margin-top: 0;
+}
+
+.completed-card p {
+  color: #047857;
+}
+
+.completed-card code {
+  background: rgba(255,255,255,0.5);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal h3 {
+  margin-top: 0;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 1rem;
+  }
+  
+  .stories-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .approval-actions {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,255 @@
+<div class="app-container">
+  <!-- Header -->
+  <header class="header">
+    <h1>📝 Story Builder</h1>
+    <p>Build code from Jira stories with human-in-the-loop workflow</p>
+  </header>
+
+  <!-- Configuration View -->
+  @if (currentView === 'config') {
+    <div class="config-section">
+      <h2>⚙️ Configuration</h2>
+      
+      <div class="config-form">
+        <div class="form-section">
+          <h3>Jira Settings</h3>
+          <div class="form-group">
+            <label>Jira URL</label>
+            <input type="text" [(ngModel)]="jiraConfig.jiraUrl" placeholder="https://your-domain.atlassian.net">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" [(ngModel)]="jiraConfig.email" placeholder="your@email.com">
+          </div>
+          <div class="form-group">
+            <label>API Token</label>
+            <input type="password" [(ngModel)]="jiraConfig.apiToken" placeholder="Your Jira API token">
+          </div>
+          <div class="form-group">
+            <label>Project Key</label>
+            <input type="text" [(ngModel)]="jiraConfig.projectKey" placeholder="PROJ">
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>Git Settings</h3>
+          <div class="form-group">
+            <label>Repository URL</label>
+            <input type="text" [(ngModel)]="gitConfig.repoUrl" placeholder="https://github.com/user/repo.git">
+          </div>
+          <div class="form-group">
+            <label>Target Branch</label>
+            <input type="text" [(ngModel)]="gitConfig.branch" placeholder="master">
+          </div>
+        </div>
+
+        <button class="btn-primary" (click)="saveConfigs()">Save & Connect</button>
+      </div>
+    </div>
+  }
+
+  <!-- Stories List View -->
+  @if (currentView === 'stories') {
+    <div class="stories-section">
+      <div class="section-header">
+        <h2>📋 User Stories</h2>
+        <button class="btn-secondary" (click)="showConfigForm = true">⚙️ Settings</button>
+      </div>
+
+      @if (stories.length === 0) {
+        <div class="empty-state">
+          <p>No stories found. Check your Jira configuration.</p>
+          <button class="btn-secondary" (click)="loadStories()">🔄 Refresh</button>
+        </div>
+      } @else {
+        <div class="stories-grid">
+          @for (story of stories; track story.key) {
+            <div class="story-card" (click)="selectStory(story)">
+              <div class="story-key">{{ story.key }}</div>
+              <h3 class="story-summary">{{ story.summary }}</h3>
+              <div class="story-meta">
+                <span class="story-status">{{ story.status }}</span>
+                @if (story.assignee) {
+                  <span class="story-assignee">👤 {{ story.assignee }}</span>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+    @if (showConfigForm) {
+      <div class="modal-overlay" (click)="showConfigForm = false">
+        <div class="modal" (click)="$event.stopPropagation()">
+          <h3>⚙️ Settings</h3>
+          <div class="form-group">
+            <label>Jira URL</label>
+            <input type="text" [(ngModel)]="jiraConfig.jiraUrl">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" [(ngModel)]="jiraConfig.email">
+          </div>
+          <div class="form-group">
+            <label>API Token</label>
+            <input type="password" [(ngModel)]="jiraConfig.apiToken">
+          </div>
+          <div class="form-group">
+            <label>Project Key</label>
+            <input type="text" [(ngModel)]="jiraConfig.projectKey">
+          </div>
+          <div class="form-group">
+            <label>Repository URL</label>
+            <input type="text" [(ngModel)]="gitConfig.repoUrl">
+          </div>
+          <div class="modal-actions">
+            <button class="btn-secondary" (click)="showConfigForm = false">Cancel</button>
+            <button class="btn-primary" (click)="saveConfigs()">Save</button>
+          </div>
+        </div>
+      </div>
+    }
+  }
+
+  <!-- Workflow View -->
+  @if (currentView === 'workflow') {
+    <div class="workflow-section">
+      <div class="section-header">
+        <button class="btn-back" (click)="goBack()">← Back</button>
+        <h2>🔄 {{ selectedStory?.key }}: {{ selectedStory?.summary }}</h2>
+      </div>
+
+      @if (!workflowStatus) {
+        <div class="start-workflow">
+          <p>Ready to build this story. Repository: <code>{{ gitConfig.repoUrl }}</code></p>
+          <button class="btn-primary btn-large" (click)="startWorkflow()">🚀 Start Building</button>
+        </div>
+      }
+
+      @if (workflowStatus) {
+        <!-- Progress Messages -->
+        @if (progressMessages.length > 0) {
+          <div class="progress-section">
+            <h3>📢 Live Progress</h3>
+            <div class="progress-log">
+              @for (msg of progressMessages; track msg) {
+                <div class="progress-item">{{ msg }}</div>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- Workflow Steps -->
+        <div class="workflow-steps">
+          <h3>🔄 Workflow Status</h3>
+          <div class="status-display">
+            <span class="step-icon" [style.background]="getStatusColor(workflowStatus.currentStep)">
+              {{ getStepIcon(workflowStatus.currentStep) }}
+            </span>
+            <div class="step-info">
+              <span class="step-name">{{ formatStepName(workflowStatus.currentStep) }}</span>
+              <span class="step-message">{{ workflowStatus.message }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Plan Approval -->
+        @if (isAwaitingPlanApproval()) {
+          <div class="approval-card">
+            <h3>📝 Implementation Plan</h3>
+            <div class="plan-content">
+              <div class="plan-section">
+                <h4>📁 Files Likely to Change:</h4>
+                <ul>
+                  @for (file of workflowStatus.filesLikelyToChange; track file) {
+                    <li><code>{{ file }}</code></li>
+                  }
+                </ul>
+              </div>
+              <div class="plan-section">
+                <h4>💡 Proposed Approach:</h4>
+                <pre>{{ workflowStatus.proposedApproach }}</pre>
+              </div>
+              <div class="plan-section">
+                <h4>📊 Estimated Impact:</h4>
+                <p>{{ workflowStatus.estimatedImpact }}</p>
+              </div>
+            </div>
+            <div class="approval-actions">
+              <button class="btn-success" (click)="approvePlan()">✓ Approve Plan</button>
+              <button class="btn-danger" (click)="reset()">✗ Cancel</button>
+            </div>
+          </div>
+        }
+
+        <!-- File Changes -->
+        @if (fileChanges.length > 0) {
+          <div class="changes-section">
+            <h3>📝 Files Created/Modified</h3>
+            <div class="file-list">
+              @for (change of fileChanges; track change.filename) {
+                <details class="file-item">
+                  <summary>{{ change.filename }}</summary>
+                  <pre>{{ change.content }}</pre>
+                </details>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- Test Results -->
+        @if (workflowStatus.testResults && workflowStatus.testResults.length > 0) {
+          <div class="test-results">
+            <h3>🧪 Test Results</h3>
+            <ul>
+              @for (result of workflowStatus.testResults; track result) {
+                <li [class.passed]="result.includes('PASSED')" [class.failed]="result.includes('FAILED')">
+                  {{ result }}
+                </li>
+              }
+            </ul>
+          </div>
+        }
+
+        <!-- Git Diff -->
+        @if (workflowStatus.gitDiff) {
+          <div class="diff-section">
+            <h3>📄 Git Changes</h3>
+            <pre class="diff-content">{{ workflowStatus.gitDiff }}</pre>
+          </div>
+        }
+
+        <!-- Commit Approval -->
+        @if (isAwaitingCommitApproval()) {
+          <div class="approval-card">
+            <h3>✅ Review & Commit</h3>
+            <p>Review the changes above and approve or request modifications.</p>
+            <div class="feedback-input">
+              <textarea 
+                [(ngModel)]="commitFeedback" 
+                placeholder="Add feedback or modifications request (optional for rejection)..."
+                rows="3"></textarea>
+            </div>
+            <div class="approval-actions">
+              <button class="btn-success" (click)="approveCommit()">✓ Commit & Create PR</button>
+              @if (commitFeedback) {
+                <button class="btn-warning" (click)="rejectCommit()">✗ Request Changes</button>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- Completed -->
+        @if (workflowStatus.currentStep === 'COMPLETED') {
+          <div class="completed-card">
+            <h3>🎉 Done!</h3>
+            <p>{{ workflowStatus.message }}</p>
+            <p>Branch: <code>{{ workflowStatus.branchName }}</code></p>
+            <button class="btn-primary" (click)="reset()">🔄 Build Another Story</button>
+          </div>
+        }
+      }
+    </div>
+  }
+</div>

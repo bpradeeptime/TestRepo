@@ -1,0 +1,12 @@
+/workspace/project/story-builder/backend/src/main/java/com/storybuilder/config/WebSocketConfig.java
+/workspace/project/story-builder/backend/src/main/java/com/storybuilder/dto/JiraConfigDto.java
+/workspace/project/story-builder/backend/src/main/java/com/storybuilder/controller/WorkflowController.java
+/workspace/project/story-builder/backend/src/main/java/com/storybuilder/service/GitService.java
+/workspace/project/story-builder/backend/src/main/java/com/storybuilder/controller/JiraController.java
+/workspace/project/story-builder/backend/src/main/java/com/storybuilder/StoryBuilderApplication.java
+/workspace/project/story-builder/backend/src/main/java/com/storybuilder/service/CodeGeneratorService.java
+/workspace/project/story-builder/backend/src/main/java/com/storybuilder/model/WorkflowStatus.java
+/workspace/project/story-builder/backend/src/main/java/com/storybuilder/service/JiraService.java
+/workspace/project/story-builder/backend/src/main/java/com/storybuilder/dto/GitConfigDto.java
+/workspace/project/story-builder/backend/src/main/java/com/storybuilder/model/JiraStory.java
+/workspace/project/story-builder/backend/src/main/java/com/storybuilder/controller/SseController.java
