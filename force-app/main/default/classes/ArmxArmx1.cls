@@ -1,21 +1,15 @@
 public with sharing class ArmxArmx1 {
     /**
-     * Sums the provided values and returns the result.
-     * Null or empty input returns 0. Null elements are treated as 0.
+     * Subtracts the second value from the first and returns the result.
      *
-     * @param values the collection of Decimal values to sum
-     * @return the arithmetic sum of the provided values as a Decimal
+     * @param a the minuend
+     * @param b the subtrahend
+     * @return the difference (a - b); returns null if either input is null
      */
-    public Decimal sumValues(List<Decimal> values) {
-        Decimal total = 0;
-        if (values == null || values.isEmpty()) {
-            return total;
+    public Decimal subtract(Decimal a, Decimal b) {
+        if (a == null || b == null) {
+            return null;
         }
-        for (Decimal value : values) {
-            if (value != null) {
-                total += value;
-            }
-        }
-        return total;
+        return a - b;
     }
 }
