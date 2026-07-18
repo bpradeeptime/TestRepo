@@ -1,26 +1,28 @@
-/**
- * HelloWorldTest
- * Unit tests for HelloWorld.
- */
 @isTest
 private class HelloWorldTest {
 
     @isTest
-    static void sayHello_returnsExpectedMessage() {
+    static void sayHelloReturnsExpectedString() {
         Test.startTest();
         String result = HelloWorld.sayHello();
         Test.stopTest();
 
-        Assert.areEqual('Hello World', result, 'sayHello() should return the exact greeting');
+        Assert.areEqual('Hello World', result, 'sayHello() should return the exact string \'Hello World\'');
     }
 
     @isTest
-    static void sayHello_isNotEmptyOrUnexpected() {
+    static void sayHelloDoesNotReturnNullOrEmpty() {
         String result = HelloWorld.sayHello();
 
-        // Negative path: ensure it never returns null, blank, or an unexpected value.
-        Assert.isNotNull(result, 'sayHello() must never return null');
-        Assert.isTrue(String.isNotBlank(result), 'sayHello() must not return a blank string');
-        Assert.areNotEqual('Goodbye', result, 'sayHello() must not return an unexpected greeting');
+        Assert.isNotNull(result, 'sayHello() should never return null');
+        Assert.areNotEqual('', result, 'sayHello() should not return an empty string');
+    }
+
+    @isTest
+    static void sayHelloIsNotArbitraryValue() {
+        String result = HelloWorld.sayHello();
+
+        // Negative path: confirm the method does not return an unexpected value
+        Assert.areNotEqual('Goodbye', result, 'sayHello() should not return an unrelated greeting');
     }
 }
