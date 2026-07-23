@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_Edit_When_Inactive</fullName>
+    <active>true</active>
+    <description>Blocks editing of a Warranty when it is not active. New records and records whose Active flag is being set back to true are allowed; existing inactive warranties become read-only regardless of profile.</description>
+    <errorConditionFormula>AND(
+    NOT(ISNEW()),
+    NOT( Active__c ),
+    OR(
+        ISCHANGED( Product__c ),
+        ISCHANGED( Start_Date__c ),
+        ISCHANGED( Warranty_Period_Months__c )
+    )
+)</errorConditionFormula>
+    <errorMessage>This warranty is inactive or expired and cannot be edited. Only active warranties can be modified.</errorMessage>
+</ValidationRule>

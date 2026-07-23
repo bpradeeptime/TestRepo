@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Active__c</fullName>
+    <label>Active</label>
+    <type>Checkbox</type>
+    <defaultValue>true</defaultValue>
+    <trackHistory>false</trackHistory>
+    <description>Indicates whether the warranty is active. Only active warranties can be edited.</description>
+    <inlineHelpText>Uncheck when the warranty is no longer active. Inactive warranties cannot be edited.</inlineHelpText>
+</CustomField>
