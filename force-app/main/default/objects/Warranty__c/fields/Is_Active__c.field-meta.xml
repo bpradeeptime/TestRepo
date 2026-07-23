@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Active__c</fullName>
+    <label>Is Active</label>
+    <description>Formula that returns true when the warranty Status is Active. Used to gate editing of warranties.</description>
+    <inlineHelpText>Automatically true when Status is Active.</inlineHelpText>
+    <type>Checkbox</type>
+    <formula>ISPICKVAL(Status__c, &quot;Active&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <trackHistory>false</trackHistory>
+</CustomField>
