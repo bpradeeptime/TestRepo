@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Only_Active_Editable</fullName>
+    <active>true</active>
+    <description>Blocks edits to Warranty records that are not Active, except for System Administrators and except for transitioning the Status off Active. Allows creation of new records regardless of status.</description>
+    <errorConditionFormula>AND(
+  NOT(ISNEW()),
+  NOT($Profile.Name = "System Administrator"),
+  ISPICKVAL(PRIORVALUE(Status__c), "Active") = FALSE,
+  OR(
+    ISCHANGED(Start_Date__c),
+    ISCHANGED(Warranty_Term_Months__c),
+    ISCHANGED(Product__c)
+  )
+)</errorConditionFormula>
+    <errorMessage>Only active warranties can be edited. This warranty is not active and its details cannot be changed.</errorMessage>
+</ValidationRule>
