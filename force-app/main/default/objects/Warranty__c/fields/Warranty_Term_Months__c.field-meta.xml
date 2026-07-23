@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Warranty_Term_Months__c</fullName>
+    <label>Warranty Term (Months)</label>
+    <type>Number</type>
+    <precision>4</precision>
+    <scale>0</scale>
+    <required>true</required>
+    <trackHistory>false</trackHistory>
+    <description>Duration of the warranty in months, used to calculate the expiration date.</description>
+    <inlineHelpText>Number of months the warranty is valid from the start date.</inlineHelpText>
+</CustomField>
